@@ -1,0 +1,21 @@
+Application Data/
+Cookies/
+Local Settings/
+My Documents/
+NetHood/
+PrintHood/
+Recent/
+SendTo/
+Start Menu/
+Templates/
+ntuser.dat*
+.bash_history
+.gitconfig
+.lesshst
+.ssh/
+.vscode/
+.VirtualBox/
+IntelGraphicsProfiles/
+OneDrive/
+VirtualBox VMs/
+php.zip
