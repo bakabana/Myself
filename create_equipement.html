@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Equipement</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        form {
+    max-width: 600px;
+    margin: 10px auto 0 auto; /* Réglage de la marge pour déplacer le formulaire vers le haut */
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="text"], select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button[type="submit"] {
+            width: auto; /* Ajustement de la largeur */
+            padding: 8px 16px; /* Taille du padding réduite */
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ajouter un Equipement</h1>
+    <form method="post"> 
+        {% csrf_token %}
+        <label for="NatureEquipement">Nature d'Equipement:</label>
+        <input type="text" id="NatureEquipement" name="NatureEquipement" required>
+        <label for="NomEquipement">Nom d'Equipement:</label>
+        <input type="text" id="NomEquipement" name="NomEquipement" required>
+        <label for="Marque">Marque:</label>
+        <input type="text" id="Marque" name="Marque" required>
+        <label for="Service">Service:</label>
+        <input type="text" id="Service" name="Service" required>
+        <label for="Emplacement">Emplacement:</label>
+        <input type="text" id="Emplacement" name="Emplacement" required>
+        <button type="submit">Sauvegarder</button>
+        <div id="container">
+            <h4>  <a href="{% url 'capacite_list' %}">Retour</a> </h4>
+
+        </div>
+        
+    </form>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.querySelector("form");
+
+            form.addEventListener("submit", function (event) {
+                event.preventDefault(); // Prevent default form submission
+
+                // Form validation here
+                let NatureEquipement = document.getElementById("NatureEquipement").value.trim();
+                let NomEquipement = document.getElementById("NomEquipement").value.trim();
+                let Marque = document.getElementById("Marque").value.trim();
+                let Service = document.getElementById("Service").value.trim();
+                let Emplacement = document.getElementById("Emplacement").value.trim();
+
+                if (NatureEquipement === "" || NomEquipement === "" || Marque === "" || Service === "" || Emplacement === "") {
+                    alert("Please fill in all fields.");
+                } else {
+                    // If validation succeeds, you can submit the form
+                    form.submit();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

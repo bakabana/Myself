@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>{% block title %}Accueil{% endblock %}</title>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no" />
+
+<style>
+    /* Styles pour le footer */
+    footer {
+        background-color: #555555; /* Couleur de fond grise */
+        color: white; /* Texte blanc */
+        padding: 20px; /* Espace intérieur */
+        text-align: center; /* Alignement du texte au centre */
+        margin-top: 20px; /* Espacement entre le contenu principal et le pied de page */
+    }
+
+    .navigation h2 {
+        text-align: left; /* Alignement des éléments à droite */
+        color: #ddd;
+    }
+
+    .navigation {
+        background-color: gray;
+        padding: 10px;
+    }
+
+    .navigation ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        text-align: right; /* Alignement des éléments à droite */
+    }
+
+    .navigation ul li {
+        display: inline-block;
+    }
+
+    .navigation ul li a {
+        display: block;
+        color: white;
+        text-decoration: none;
+        padding: 5px 10px;
+        margin: 10px;
+    }
+
+    .navigation ul li a:hover {
+        background-color: gray; /* Couleur de fond au survol */
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f2f2f2;
+        text-align: center;
+    }
+    
+    i {
+        text-align: left;
+        margin-bottom: 30px;
+    }
+    
+    table {
+        width: 80%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        margin-bottom: 100px;
+    }
+    
+    th, td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    th {
+        background-color: #050546;
+        color: #fff;
+        margin: 100px;
+    }
+    
+    tr:hover {
+        background-color: #f2f2f2;
+    }
+    
+    .btn {
+        padding: 8px 12px;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+        color: #fff;
+    }
+    
+    .btn-delete {
+        background-color: #dc3545;
+        margin: 3px;
+    }
+    
+    .btn-edit {
+        background-color: gray;
+    }
+    
+    .link-back {
+        text-align: center;
+    }
+    
+    /* Ajouter des marges autour du formulaire de recherche */
+    .search-form {
+        margin: 20px 0; /* 20px en haut et en bas */
+    }
+</style>
+</head>
+<body>
+    <div class="texture">
+        <header id="home" class="page">
+          <div class="navigation single-page-nav">
+            <div class="container_12">
+              <div class="grid_12">
+                <h1 class="logo">
+                  <a href="#"></a>
+                </h1>
+                <nav>
+                    <h2>MSY (MULTI SERVICES YIELDED)</h2>
+                  <ul>
+                   <li><a href="{% url 'index' %}" class="current">ACCUEIL</a></li>
+                   <li><a href="{% url 'equipement_list' %}">EQUIPEMENT</a></li>
+                   <li><a href="{% url 'software_list' %}">SOFTWARE</a></li>
+                   <li><a href="{% url 'capacite_list' %}">CAPACITE</a></li>
+                 </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+    <h3><marquee>Liste Des Equipements MSY</marquee> </h3>
+
+    <!-- Ajoutez une classe CSS au formulaire de recherche -->
+    <form method="get" action="" class="search-form">
+        {{ form.as_p }}
+        <button type="submit">Rechercher</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nature Equipement</th>
+                <th>Nom Equipement</th>
+                <th>Marque</th>
+                <th>Service</th>
+                <th>Emplacement</th>
+                <th></th> <!-- Nouvelle colonne pour les boutons -->
+                <th></th> <!-- Nouvelle colonne pour les boutons -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for equipement in equipements %}
+            <tr>
+                <td>{{ equipement.NatureEquipement }}</td>
+                <td>{{ equipement.NomEquipement }}</td>
+                <td>{{ equipement.Marque }}</td>
+                <td>{{ equipement.Service }}</td>
+                <td>{{ equipement.Emplacement }}</td>
+                <td>
+                    <form action="{% url 'update_equipement' equipement.pk %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-edit">Modifier</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="post" action="{% url 'delete_equipement' equipement.pk %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-delete">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+            <tr class="link-back">
+                <td colspan="7"><a href="{% url 'create_equipement' %}">Enregistrer un équipement</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <footer>
+        <div class="footer_bottom">
+          <div class="container_12">
+            <div class="grid_12">
+              <div class="socials">
+                <a href="#" class="fa fa-facebook"></a>
+                <a href="#" class="fa fa-google-plus"></a>
+                <a href="#" class="fa fa-twitter"></a>
+              </div>
+              <div class="copy">© 2024 | By MSY (MULTI SERVICES YIELDED)</div>
+            </div>
+          </div>
+        </div>
+    </footer>
+</body>
+</html>
